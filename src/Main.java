@@ -13,11 +13,11 @@ public class Main {
     public static void openZip(String path, String pathToUnpack) {
         try (ZipInputStream zis = new ZipInputStream(new FileInputStream(path))) {
             ZipEntry entry;
-            while((entry = zis.getNextEntry()) != null){
+            while ((entry = zis.getNextEntry()) != null) {
                 String name = new File(entry.getName()).getName();
                 FileOutputStream fos = new FileOutputStream(pathToUnpack.concat("/" + name));
                 int c;
-                while ((c = zis.read()) != -1){
+                while ((c = zis.read()) != -1) {
                     fos.write(c);
                 }
                 fos.flush();
@@ -29,12 +29,12 @@ public class Main {
         }
     }
 
-    public static GameProgress openProgress(String path){
+    public static GameProgress openProgress(String path) {
         GameProgress gp = null;
-        try(FileInputStream fis = new FileInputStream(path.concat("/save1.dat"));
-            ObjectInputStream ois = new ObjectInputStream(fis)){
+        try (FileInputStream fis = new FileInputStream(path.concat("/save1.dat"));
+             ObjectInputStream ois = new ObjectInputStream(fis)) {
             gp = (GameProgress) ois.readObject();
-        } catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
         return gp;
